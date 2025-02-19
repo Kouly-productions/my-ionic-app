@@ -11,7 +11,7 @@
           <ion-title size="large">Tab 2</ion-title>
         </ion-toolbar>
       </ion-header>
-
+ª
       <ExploreContainer name="Tab 2 page" />
     </ion-content>
   </ion-page>
