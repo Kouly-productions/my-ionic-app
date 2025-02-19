@@ -25,8 +25,8 @@
        <ion-button v-if="needsPermission" @click="requestMotionPermission">
          Enable Shake Detection
        </ion-button>
-       <ion-button class="save-btn">
-         Save this quote
+       <ion-button class="save-btn" @click="saveQuote">
+        Save this quote
        </ion-button>
      </div>
    </ion-content>
@@ -35,6 +35,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
+import { Preferences } from '@capacitor/preferences';
 import {
  IonPage,
  IonHeader,
@@ -175,6 +176,51 @@ onUnmounted(() => {
  console.log('[onUnmounted] Component unmounted. Removing listener.');
  removeMotionListener();
 });
+
+
+
+
+
+
+
+
+
+
+interface SavedQuote {
+  quote: string;
+  author: string;
+  timestamp: number;
+}
+
+interface Quote {
+  quote: string;
+  author: string;
+  category: string;
+}
+
+const saveQuote = () => {
+  // Retrieve existing quotes from localStorage
+  const stored = localStorage.getItem('savedQuotes');
+  const savedQuotes: SavedQuote[] = stored ? JSON.parse(stored) : [];
+  
+  // Add the new quote
+  savedQuotes.push({
+    quote: quote.value,
+    author: author.value,
+    timestamp: Date.now(),
+  });
+  
+  // Save back to localStorage
+  localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
+  console.log('Quote saved successfully using localStorage.');
+};
+
+// Example function to load saved quotes
+const loadQuotes = (): SavedQuote[] => {
+  const stored = localStorage.getItem('savedQuotes');
+  return stored ? JSON.parse(stored) : [];
+};
+
 
 </script>
 
