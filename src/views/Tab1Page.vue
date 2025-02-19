@@ -191,8 +191,6 @@ interface SavedQuote {
   timestamp: number;
 }
 
-
-
 const saveQuote = () => {
   // Retrieve existing quotes from localStorage
   const stored = localStorage.getItem('savedQuotes');
@@ -209,9 +207,6 @@ const saveQuote = () => {
   localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
   console.log('Quote saved successfully using localStorage.');
 };
-
-
-
 
 </script>
 
