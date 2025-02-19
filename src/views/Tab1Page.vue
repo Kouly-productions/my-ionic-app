@@ -35,7 +35,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
-import { Preferences } from '@capacitor/preferences';
 import {
  IonPage,
  IonHeader,
@@ -192,12 +191,6 @@ interface SavedQuote {
   timestamp: number;
 }
 
-interface Quote {
-  quote: string;
-  author: string;
-  category: string;
-}
-
 const saveQuote = () => {
   // Retrieve existing quotes from localStorage
   const stored = localStorage.getItem('savedQuotes');
@@ -214,13 +207,6 @@ const saveQuote = () => {
   localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
   console.log('Quote saved successfully using localStorage.');
 };
-
-// Example function to load saved quotes
-const loadQuotes = (): SavedQuote[] => {
-  const stored = localStorage.getItem('savedQuotes');
-  return stored ? JSON.parse(stored) : [];
-};
-
 
 </script>
 
