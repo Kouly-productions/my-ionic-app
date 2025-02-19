@@ -1,4 +1,4 @@
-When in the correct directory (my-app)
+When in the correct directory (my-ionic-app)
 
 When made changes and want to apply them to test
 - ionic build        # Builds your app
