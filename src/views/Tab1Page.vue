@@ -59,7 +59,7 @@
  const quote = ref('Loading quote...');
  const author = ref('');
  const showPermissionAlert = ref(false);
- 
+
  const alertButtons = [
    {
      text: 'Not Now',
@@ -199,7 +199,6 @@
  
  const saveQuote = ($event: MouseEvent) => {
   const button = $event.currentTarget as HTMLElement;
-  // Add bounce animation
   button.classList.add('bouncy');
   button.addEventListener('animationend', () => {
     button.classList.remove('bouncy');
@@ -207,6 +206,11 @@
 
   const stored = localStorage.getItem('savedQuotes');
   const savedQuotes: SavedQuote[] = stored ? JSON.parse(stored) : [];
+  
+  if (savedQuotes.find(q => q.quote === quote.value)) {
+    console.log('Quote already saved');
+    return;
+  }
   
   savedQuotes.push({
     quote: quote.value,
@@ -216,6 +220,7 @@
   
   localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
   console.log('Quote saved successfully using localStorage.');
+  
   emitter.emit('quoteSaved');
 };
 
