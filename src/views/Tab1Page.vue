@@ -52,7 +52,6 @@
   IonCardContent,
   IonButton,
   IonAlert,
-  alertController
  } from '@ionic/vue';
  
  // Reactive state
