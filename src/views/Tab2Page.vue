@@ -43,8 +43,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { trashOutline } from 'ionicons/icons';
+import emitter from '@/eventBus';
 import {
   IonPage,
   IonHeader,
@@ -101,6 +102,13 @@ const formatDate = (timestamp: number) => {
 // Load quotes when component mounts
 onMounted(() => {
   loadSavedQuotes();
+
+  // Listen for the 'quoteSaved' event and reload the quotes.
+  emitter.on('quoteSaved', loadSavedQuotes);
+});
+
+onUnmounted(() => {
+  emitter.off('quoteSaved', loadSavedQuotes);
 });
 </script>
 
