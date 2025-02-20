@@ -27,15 +27,9 @@
               <h2>{{ quote.quote }}</h2>
               <p>— {{ quote.author }}</p>
               <p class="timestamp">{{ formatDate(quote.timestamp) }}</p>
+              <button color="danger" @click="deleteQuote(quote.timestamp)">Delete</button>
             </ion-label>
           </ion-item>
-          
-          <ion-item-options>
-            <ion-item-option color="danger" @click="deleteQuote(quote.timestamp)">
-              <ion-icon :icon="trashOutline" class="ion-margin-right"></ion-icon>
-              Delete
-            </ion-item-option>
-          </ion-item-options>
         </ion-item-sliding>
       </ion-list>
     </ion-content>
@@ -131,5 +125,16 @@ ion-item h2 {
 
 ion-item p {
   margin: 4px 0;
+}
+
+button {
+  height: 50px;
+  width: 30%;
+  background-color: red;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-top: 8px;
 }
 </style>
