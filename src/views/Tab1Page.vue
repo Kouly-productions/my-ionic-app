@@ -35,6 +35,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
+import emitter from '@/eventBus';
 import {
  IonPage,
  IonHeader,
@@ -206,6 +207,9 @@ const saveQuote = () => {
   // Save back to localStorage
   localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
   console.log('Quote saved successfully using localStorage.');
+
+  // Emit the event to notify that a quote has been saved.
+  emitter.emit('quoteSaved');
 };
 
 </script>
