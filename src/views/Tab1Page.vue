@@ -35,6 +35,22 @@
       :buttons="alertButtons"
       @didDismiss="handleAlertDismiss"
     />
+    <ion-toast
+      :is-open="showDuplicateToast"
+      message="This quote is already saved!"
+      :duration="2000"
+      position="bottom"
+      color="warning"
+      @didDismiss="showDuplicateToast = false"
+    />
+    <ion-toast
+      :is-open="showSuccessToast"
+      message="Quote saved successfully!"
+      :duration="2000"
+      position="bottom"
+      color="success"
+      @didDismiss="showSuccessToast = false"
+    />
   </ion-page>
  </template>
  
@@ -53,12 +69,15 @@
   IonCardContent,
   IonButton,
   IonAlert,
+  IonToast,
  } from '@ionic/vue';
  
  // Reactive state
  const quote = ref('Loading quote...');
  const author = ref('');
  const showPermissionAlert = ref(false);
+ const showDuplicateToast = ref(false);
+ const showSuccessToast = ref(false);
 
  const alertButtons = [
    {
@@ -209,6 +228,7 @@
   
   if (savedQuotes.find(q => q.quote === quote.value)) {
     console.log('Quote already saved');
+    showDuplicateToast.value = true;
     return;
   }
   
@@ -221,6 +241,7 @@
   localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
   console.log('Quote saved successfully using localStorage.');
   
+  showSuccessToast.value = true;
   emitter.emit('quoteSaved');
 };
 
