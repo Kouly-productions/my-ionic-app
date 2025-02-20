@@ -11,7 +11,8 @@
           <ion-title class="random_quote" size="large">Random Quote</ion-title>
         </ion-toolbar>
       </ion-header>
-      <ion-card class="ion-margin">
+      <div class="card-container">
+        <ion-card class="ion-margin">
         <ion-card-header>
           <ion-card-title>Shake for a New Quote</ion-card-title>
         </ion-card-header>
@@ -20,10 +21,10 @@
           <p>— {{ author }}</p>
         </ion-card-content>
       </ion-card>
-      
+      </div>
       <div class="button-container">
-        <ion-button class="save-btn" @click="saveQuote">
-         Save this quote
+        <ion-button class="save-btn" @click="saveQuote($event)">
+          Save this quote
         </ion-button>
       </div>
     </ion-content>
@@ -196,24 +197,43 @@
    timestamp: number;
  }
  
- const saveQuote = () => {
-   const stored = localStorage.getItem('savedQuotes');
-   const savedQuotes: SavedQuote[] = stored ? JSON.parse(stored) : [];
-   
-   savedQuotes.push({
-     quote: quote.value,
-     author: author.value,
-     timestamp: Date.now(),
-   });
-   
-   localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
-   console.log('Quote saved successfully using localStorage.');
- 
-   emitter.emit('quoteSaved');
- };
+ const saveQuote = ($event: MouseEvent) => {
+  const button = $event.currentTarget as HTMLElement;
+  // Add bounce animation
+  button.classList.add('bouncy');
+  button.addEventListener('animationend', () => {
+    button.classList.remove('bouncy');
+  }, { once: true });
+
+  const stored = localStorage.getItem('savedQuotes');
+  const savedQuotes: SavedQuote[] = stored ? JSON.parse(stored) : [];
+  
+  savedQuotes.push({
+    quote: quote.value,
+    author: author.value,
+    timestamp: Date.now(),
+  });
+  
+  localStorage.setItem('savedQuotes', JSON.stringify(savedQuotes));
+  console.log('Quote saved successfully using localStorage.');
+  emitter.emit('quoteSaved');
+};
+
  </script>
  
  <style>
+.card-container {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-content {
+  justify-content: center;
+  align-items: center;
+}
+
  .button-container {
   display: flex;
   flex-direction: column;
@@ -223,11 +243,28 @@
  }
  
  ion-button {
-  width: 200px;
+  width: 70%;
   color: white;
  }
+
+  ion-card {
+    width: 95%;
+  }
 
  ion-toolbar {
   text-align: center;
  }
+ 
+ @keyframes bounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.2); }
+  50% { transform: scale(0.95); }
+  70% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.bouncy {
+  animation: bounce 0.5s;
+}
+
  </style>
