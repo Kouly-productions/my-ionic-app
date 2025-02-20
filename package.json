@@ -45,5 +45,20 @@
     "vitest": "^0.34.6",
     "vue-tsc": "^2.1.10"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kouly-productions/my-ionic-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kouly-productions/my-ionic-app/issues"
+  },
+  "homepage": "https://github.com/Kouly-productions/my-ionic-app#readme"
 }
