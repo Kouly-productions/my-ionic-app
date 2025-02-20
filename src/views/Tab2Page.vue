@@ -45,6 +45,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import { trashOutline } from 'ionicons/icons';
+import { onIonViewDidEnter } from '@ionic/vue';
 import emitter from '@/eventBus';
 import {
   IonPage,
@@ -81,6 +82,10 @@ const loadSavedQuotes = () => {
     savedQuotes.value = [];
   }
 };
+
+onIonViewDidEnter(() => {
+  loadSavedQuotes();
+});
 
 // Delete a quote and update localStorage
 const deleteQuote = (timestamp: number) => {

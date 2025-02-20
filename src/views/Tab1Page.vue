@@ -127,7 +127,7 @@ const removeMotionListener = () => {
  console.log('[removeMotionListener] Removed devicemotion event listener.');
 };
 
-// Request motion permission if required (e.g. on iOS 13+).
+// Request motion permission if required for Iphone (e.g. on iOS 13+).
 const requestMotionPermission = async () => {
  console.log('[requestMotionPermission] Requesting motion permission.');
  if (
